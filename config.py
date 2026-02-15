@@ -3,7 +3,7 @@ from datetime import timedelta
 
 class Config:
     # Basic Flask config
-    SECRET_KEY = os.environ.get('SECRET_KEY')
+    SECRET_KEY = os.environ.get('SECRET_KEY') or 'ai-smart-canteen-local-secret-2026'
 
     # Database
     SQLALCHEMY_DATABASE_URI = 'sqlite:///canteen.db'
