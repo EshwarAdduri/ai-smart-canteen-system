@@ -1,0 +1,72 @@
+{% extends "base.html" %}
+
+{% block title %}My Reservations{% endblock %}
+
+{% block content %}
+<div class="container">
+    <h1 class="mb-4"><i class="fas fa-ticket-alt"></i> My Reservations</h1>
+
+    <div class="card shadow">
+        <div class="card-body">
+            {% if reservations %}
+                <div class="table-responsive">
+                    <table class="table table-hover">
+                        <thead>
+                            <tr>
+                                <th>Token</th>
+                                <th>Meal</th>
+                                <th>Quantity</th>
+                                <th>Pickup Time</th>
+                                <th>Status</th>
+                                <th>Created</th>
+                                <th>Actions</th>
+                            </tr>
+                        </thead>
+                        <tbody>
+                            {% for res in reservations %}
+                                <tr>
+                                    <td><span class="badge bg-dark fs-6">{{ res.token }}</span></td>
+                                    <td><strong>{{ res.meal.name }}</strong></td>
+                                    <td>{{ res.quantity }}</td>
+                                    <td>{{ res.pickup_time.strftime('%d %b %Y, %I:%M %p') }}</td>
+                                    <td>
+                                        <span class="badge bg-{% if res.status == 'confirmed' %}success
+                                            {% elif res.status == 'completed' %}info
+                                            {% elif res.status == 'cancelled' %}danger
+                                            {% else %}warning{% endif %}">
+                                            {{ res.status|upper }}
+                                        </span>
+                                    </td>
+                                    <td>{{ res.created_at.strftime('%d %b %Y') }}</td>
+                                    <td>
+                                        {% if res.status in ['pending', 'confirmed'] %}
+                                            <form method="POST" action="{{ url_for('cancel_reservation', reservation_id=res.id) }}" class="d-inline">
+                                                <button type="submit" class="btn btn-sm btn-danger" 
+                                                        onclick="return confirm('Cancel this reservation?')">
+                                                    <i class="fas fa-times"></i> Cancel
+                                                </button>
+                                            </form>
+                                        {% else %}
+                                            <span class="text-muted">-</span>
+                                        {% endif %}
+                                    </td>
+                                </tr>
+                            {% endfor %}
+                        </tbody>
+                    </table>
+                </div>
+            {% else %}
+                <p class="text-center text-muted py-5">
+                    <i class="fas fa-info-circle fa-3x mb-3"></i><br>
+                    No reservations yet. Start by browsing the menu!
+                </p>
+                <div class="text-center">
+                    <a href="{{ url_for('view_menu') }}" class="btn btn-primary">
+                        <i class="fas fa-book-open"></i> View Menu
+                    </a>
+                </div>
+            {% endif %}
+        </div>
+    </div>
+</div>
+{% endblock %}

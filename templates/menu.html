@@ -1,0 +1,52 @@
+{% extends "base.html" %}
+
+{% block title %}Menu - Smart Canteen{% endblock %}
+
+{% block content %}
+<div class="container">
+    <h1 class="mb-4"><i class="fas fa-book-open"></i> Today's Menu</h1>
+
+    <!-- Category Filter -->
+    <div class="mb-4">
+        <div class="btn-group" role="group">
+            <a href="{{ url_for('view_menu', category='all') }}" 
+               class="btn btn-{% if category == 'all' %}primary{% else %}outline-primary{% endif %}">All</a>
+            <a href="{{ url_for('view_menu', category='breakfast') }}" 
+               class="btn btn-{% if category == 'breakfast' %}primary{% else %}outline-primary{% endif %}">Breakfast</a>
+            <a href="{{ url_for('view_menu', category='lunch') }}" 
+               class="btn btn-{% if category == 'lunch' %}primary{% else %}outline-primary{% endif %}">Lunch</a>
+            <a href="{{ url_for('view_menu', category='dinner') }}" 
+               class="btn btn-{% if category == 'dinner' %}primary{% else %}outline-primary{% endif %}">Dinner</a>
+            <a href="{{ url_for('view_menu', category='snack') }}" 
+               class="btn btn-{% if category == 'snack' %}primary{% else %}outline-primary{% endif %}">Snacks</a>
+        </div>
+    </div>
+
+    <!-- Meals Grid -->
+    <div class="row">
+        {% if meals %}
+            {% for meal in meals %}
+                <div class="col-md-4 mb-4">
+                    <div class="card h-100 shadow-sm">
+                        <div class="card-body">
+                            <h5 class="card-title">{{ meal.name }}</h5>
+                            <p class="card-text text-muted">{{ meal.description or 'Delicious meal' }}</p>
+                            <div class="d-flex justify-content-between align-items-center mb-2">
+                                <span class="badge bg-info">{{ meal.category|title }}</span>
+                                <strong class="text-primary">£{{ "%.2f"|format(meal.price) }}</strong>
+                            </div>
+                            <small class="text-muted">Available: {{ meal.stock }} portions</small>
+                        </div>
+                    </div>
+                </div>
+            {% endfor %}
+        {% else %}
+            <div class="col-12">
+                <div class="alert alert-info text-center">
+                    No meals available in this category.
+                </div>
+            </div>
+        {% endif %}
+    </div>
+</div>
+{% endblock %}

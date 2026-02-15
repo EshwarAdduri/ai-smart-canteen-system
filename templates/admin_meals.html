@@ -1,0 +1,75 @@
+{% extends "base.html" %}
+
+{% block title %}Manage Meals{% endblock %}
+
+{% block content %}
+<div class="container">
+    <div class="d-flex justify-content-between align-items-center mb-4">
+        <h1><i class="fas fa-hamburger"></i> Manage Meals</h1>
+        <a href="{{ url_for('add_meal') }}" class="btn btn-primary">
+            <i class="fas fa-plus"></i> Add New Meal
+        </a>
+    </div>
+
+    <div class="card shadow">
+        <div class="card-body">
+            {% if meals %}
+                <div class="table-responsive">
+                    <table class="table table-hover">
+                        <thead>
+                            <tr>
+                                <th>ID</th>
+                                <th>Name</th>
+                                <th>Category</th>
+                                <th>Price</th>
+                                <th>Stock</th>
+                                <th>Available</th>
+                                <th>Actions</th>
+                            </tr>
+                        </thead>
+                        <tbody>
+                            {% for meal in meals %}
+                                <tr>
+                                    <td>{{ meal.id }}</td>
+                                    <td><strong>{{ meal.name }}</strong></td>
+                                    <td><span class="badge bg-info">{{ meal.category|title }}</span></td>
+                                    <td>£{{ "%.2f"|format(meal.price) }}</td>
+                                    <td>
+                                        <span class="badge bg-{% if meal.stock > 20 %}success
+                                            {% elif meal.stock > 5 %}warning
+                                            {% else %}danger{% endif %}">
+                                            {{ meal.stock }}
+                                        </span>
+                                    </td>
+                                    <td>
+                                        {% if meal.is_available %}
+                                            <span class="badge bg-success">Yes</span>
+                                        {% else %}
+                                            <span class="badge bg-danger">No</span>
+                                        {% endif %}
+                                    </td>
+                                    <td>
+                                        <a href="{{ url_for('edit_meal', meal_id=meal.id) }}" 
+                                           class="btn btn-sm btn-warning">
+                                            <i class="fas fa-edit"></i>
+                                        </a>
+                                        <form method="POST" action="{{ url_for('delete_meal', meal_id=meal.id) }}" 
+                                              class="d-inline">
+                                            <button type="submit" class="btn btn-sm btn-danger" 
+                                                    onclick="return confirm('Delete this meal?')">
+                                                <i class="fas fa-trash"></i>
+                                            </button>
+                                        </form>
+                                    </td>
+                                </tr>
+                            {% endfor %}
+                        </tbody>
+                    </table>
+                </div>
+            {% else %}
+                <p class="text-center text-muted py-4">No meals added yet.</p>
+            {% endif %}
+        </div>
+    </div>
+</div>
+{% endblock %}

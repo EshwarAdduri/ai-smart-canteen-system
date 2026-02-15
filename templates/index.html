@@ -1,0 +1,84 @@
+{% extends "base.html" %}
+
+{% block title %}Home - Smart Canteen System{% endblock %}
+
+{% block content %}
+<div class="hero-section bg-primary text-white py-5">
+    <div class="container text-center">
+        <h1 class="display-3 mb-4">
+            <i class="fas fa-utensils"></i> AI-Powered Smart Canteen
+        </h1>
+        <p class="lead mb-4">Skip the queue, avoid the rush, and enjoy your meals with intelligent predictions</p>
+        <div class="d-grid gap-2 d-md-flex justify-content-center">
+            <a href="{{ url_for('register') }}" class="btn btn-light btn-lg px-4">
+                <i class="fas fa-user-plus"></i> Get Started
+            </a>
+            <a href="{{ url_for('login') }}" class="btn btn-outline-light btn-lg px-4">
+                <i class="fas fa-sign-in-alt"></i> Login
+            </a>
+        </div>
+    </div>
+</div>
+
+<div class="container my-5">
+    <div class="row g-4">
+        <div class="col-md-4">
+            <div class="card h-100 shadow-sm">
+                <div class="card-body text-center">
+                    <div class="feature-icon bg-primary text-white rounded-circle mx-auto mb-3" style="width: 80px; height: 80px; display: flex; align-items: center; justify-content: center;">
+                        <i class="fas fa-clock fa-2x"></i>
+                    </div>
+                    <h3 class="card-title">Skip The Queue</h3>
+                    <p class="card-text">Pre-order your meals and pick them up at your convenient time. No more waiting in long lines!</p>
+                </div>
+            </div>
+        </div>
+        <div class="col-md-4">
+            <div class="card h-100 shadow-sm">
+                <div class="card-body text-center">
+                    <div class="feature-icon bg-success text-white rounded-circle mx-auto mb-3" style="width: 80px; height: 80px; display: flex; align-items: center; justify-content: center;">
+                        <i class="fas fa-brain fa-2x"></i>
+                    </div>
+                    <h3 class="card-title">AI Predictions</h3>
+                    <p class="card-text">Get intelligent suggestions on when to visit the canteen to avoid rush hours using machine learning.</p>
+                </div>
+            </div>
+        </div>
+        <div class="col-md-4">
+            <div class="card h-100 shadow-sm">
+                <div class="card-body text-center">
+                    <div class="feature-icon bg-warning text-white rounded-circle mx-auto mb-3" style="width: 80px; height: 80px; display: flex; align-items: center; justify-content: center;">
+                        <i class="fas fa-bell fa-2x"></i>
+                    </div>
+                    <h3 class="card-title">Real-Time Updates</h3>
+                    <p class="card-text">Get notified when your meal is ready and when popular items are back in stock.</p>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <div class="row mt-5">
+        <div class="col-lg-6 mx-auto text-center">
+            <h2 class="mb-4">How It Works</h2>
+            <div class="steps">
+                <div class="step mb-4">
+                    <span class="badge bg-primary rounded-circle me-2" style="width: 40px; height: 40px; display: inline-flex; align-items: center; justify-content: center; font-size: 1.2rem;">1</span>
+                    <strong>Browse Menu:</strong> View daily meals with prices and availability
+                </div>
+                <div class="step mb-4">
+                    <span class="badge bg-primary rounded-circle me-2" style="width: 40px; height: 40px; display: inline-flex; align-items: center; justify-content: center; font-size: 1.2rem;">2</span>
+                    <strong>Check Rush Hours:</strong> See AI-powered predictions for quiet times
+                </div>
+                <div class="step mb-4">
+                    <span class="badge bg-primary rounded-circle me-2" style="width: 40px; height: 40px; display: inline-flex; align-items: center; justify-content: center; font-size: 1.2rem;">3</span>
+                    <strong>Reserve Meal:</strong> Select your meal and preferred pickup time
+                </div>
+                <div class="step mb-4">
+                    <span class="badge bg-primary rounded-circle me-2" style="width: 40px; height: 40px; display: inline-flex; align-items: center; justify-content: center; font-size: 1.2rem;">4</span>
+                    <strong>Pick Up:</strong> Show your token and collect your meal - no waiting!
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+{% endblock %}
